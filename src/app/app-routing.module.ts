@@ -2,7 +2,7 @@ import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { RouterModule, Routes } from "@angular/router";
 import {AppComponent} from './app.component'
-import { AuthGuard } from "./core/AuthGuard";
+import { AuthGuard } from "./core/services/AuthGuard";
 import { HelloComponent } from "./hello.component";
 const routes: Routes = [
   {path:'' , redirectTo:'/home',pathMatch:'full'},

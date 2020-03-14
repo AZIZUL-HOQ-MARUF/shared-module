@@ -11,10 +11,5 @@ platformBrowserDynamic().bootstrapModule(AppModule).then(ref => {
     window['ngRef'].destroy();
   }
   window['ngRef'] = ref;
-
-  setPassWord()
   // Otherwise, log the boot error
 }).catch(err => console.error(err));
-function setPassWord(){
-  localStorage.setItem('pass','12345')
-}
