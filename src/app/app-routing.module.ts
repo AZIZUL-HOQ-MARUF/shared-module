@@ -9,7 +9,7 @@ const routes: Routes = [
   { path: "home", canActivate:[AuthGuard], component: HelloComponent },
   // { path: "", redirectTo: "/home", pathMatch: "full" },
   // {path : "emp",canActivate:[AuthGuard], loadChildren: './featured/employee/employee.module#EmployeeModule'},
-  {path : "emp",canActivate:[AuthGuard], loadChildren: ()=>import('src/app/featured/employee/employee.module').then(m=>m.EmployeeModule)},
+  {path : "emp",canActivate:[AuthGuard], loadChildren: ()=>import('./featured/employee/employee.module').then(m=>m.EmployeeModule)},
 ];
 @NgModule({
   imports: [CommonModule,RouterModule.forRoot(routes)],

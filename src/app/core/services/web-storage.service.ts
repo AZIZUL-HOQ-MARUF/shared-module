@@ -12,7 +12,7 @@ export class WebStorageService {
   setLocalStorageKey(key){
     localStorage.setItem('token',key)
   }
-  getPassWord(){
+  getToken(){
     return localStorage.getItem('token');
   }
 }

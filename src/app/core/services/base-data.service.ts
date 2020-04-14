@@ -15,29 +15,32 @@ export class BaseDataService {
   }
 
   public save<T>(path: string, entity: any): Observable<any> {
+    const option = {
+      'headers': this.getHeaders()
+    }
+    return this.http.post<T>(
+      `${path}`
+      , JSON.stringify(entity)
+      , option);
+  }
+  public get<T>(path: string, param?: any): Observable<any> {
+    const option = {
+      'headers': this.getHeaders()
+    }
+    return this.http.get(`${path}`, option);
+  }
+  public login<T>(path: string, entity: any): Observable<any> {
     return this.http.post<T>(
       `${path}`
       , JSON.stringify(entity)
       , {
         'headers': this.getHeaders(), observe: 'response'
-      })
-      .pipe(catchError(this.formatErrors));
-  }
-  public get<T>(path: string, param?: any): Observable<any> {
-    const option = {
-      'headers': new HttpHeaders({
-        'Content-Type': 'application/json',
-        'Authorization': localStorage.getItem('token')
-      })
-    }
-    return this.http.get(`${path}`, option);
+      });
   }
   getHeaders(): HttpHeaders {
     let headers = new HttpHeaders();
     headers = headers.append('Content-Type', 'application/json');
-    
-    headers = headers.append('Authorization', localStorage.getItem('token'));
-    console.log(headers )
+    headers = headers.append('Authorization', localStorage.getItem('token') || '');
     return headers;
   }
 

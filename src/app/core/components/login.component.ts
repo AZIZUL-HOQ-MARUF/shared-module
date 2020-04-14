@@ -11,16 +11,19 @@ import { HttpResponse } from '@angular/common/http';
 export class LoginComponent implements OnInit {
   loginObj = { email: null, password: null }
   apiUrl = environment.URL;
-  constructor(private router: Router, private baseDataService: BaseDataService) { }
+  constructor(private router: Router
+    , private baseDataService: BaseDataService) { }
 
   ngOnInit() {
   }
   onClickLogin() {
-    this.baseDataService.save(`${this.apiUrl}/login`, this.loginObj).subscribe((result: HttpResponse<any>) => {
+    this.baseDataService.login(`${this.apiUrl}/login`, this.loginObj).subscribe((result: HttpResponse<any>) => {
       let token = result.headers.has("authorization") ? result.headers.get("authorization") : null;
       this.setLocalStorageKey(token);
-    })
-    this.router.navigate(['/home']);
+      this.router.navigate(['/home']);
+    }, err => {
+      console.log(err, 'errrrrrr');
+    });
   }
   setLocalStorageKey(key) {
     localStorage.setItem('token', key)

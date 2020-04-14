@@ -1,7 +1,9 @@
 <ul>
   <li><a href="#" class="active">Home</a></li>
+  <li><a type="button" (click)="onClickEmp()">Emp</a></li>
   <li><a href="#">Service</a></li>
   <li><a href="#">Skill</a></li>
   <li><a type="button" (click)="getUserData()">Contact Me</a></li>
-  <li ><a type="button" (click)="onClickLogout()">Logout</a></li>
+  <li ><a type="button" (click)="onClickLogout()" *ngIf="auth.isLoggedIn | async">Logout</a></li>
+  <li ><a type="button" (click)="onClickLogin()" *ngIf="!(auth.isLoggedIn | async)">Login</a></li>
 </ul>

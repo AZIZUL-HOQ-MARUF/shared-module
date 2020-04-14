@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { BaseDataService } from '../services/base-data.service';
 import { environment } from 'src/assets/environment';
+import { AuthGuard } from '../services/AuthGuard';
+import { of } from 'rxjs';
 
 @Component({
   selector: 'app-navbar',
@@ -11,20 +13,24 @@ import { environment } from 'src/assets/environment';
 export class NavbarComponent implements OnInit {
   apiUrl = environment.URL;
   constructor(private router: Router
-    , private baseDataService: BaseDataService) { }
+    , private baseDataService: BaseDataService
+    , public auth: AuthGuard) { }
 
   ngOnInit() {
   }
-  onClickLogout() {
-    if (localStorage.getItem('token')) {
-      localStorage.removeItem('token');
-      this.router.navigate(['/login']);
-    }
+  onClickEmp(){
+    this.router.navigate(["/emp"])
   }
-  getUserData(){
-    this.baseDataService.save(`${this.apiUrl}/user/get-user`,{}).subscribe(result=>{
-      console.log(result);
-      
+  onClickLogout() {
+      localStorage.removeItem('token');
+      this.auth.isLoggedIn = of(false)
+      this.router.navigate(['/login']);
+  }
+  onClickLogin(){
+    this.router.navigate(['/login']);
+  }
+  getUserData() {
+    this.baseDataService.save(`${this.apiUrl}/user/get-user`, {}).subscribe(result => {
     })
   }
 
